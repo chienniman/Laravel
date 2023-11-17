@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Jobs\ApiDemo;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::post('/SyncApiTest', function () {
+    $delaySeconds=rand(1, 3);
+    sleep($delaySeconds);
+    return "Delayed {$delaySeconds}s";
+});
+
+Route::post('/AsyncApiTest', function () {
+    ApiDemo::dispatch();
 });
