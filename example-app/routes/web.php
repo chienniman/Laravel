@@ -18,12 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/SyncApiTest', function () {
-    $delaySeconds=rand(1, 3);
+Route::post('/syncApiTest', function () {
+    $delaySeconds=5;
     sleep($delaySeconds);
-    return "Delayed {$delaySeconds}s";
 });
 
-Route::post('/AsyncApiTest', function () {
+Route::post('/asyncApiTest', function () {
     ApiDemo::dispatch();
 });

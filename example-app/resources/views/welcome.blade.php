@@ -27,7 +27,7 @@
     </button>
     <script>
         document.getElementById('apiTest').addEventListener('click', function () {
-            fetch('/AsyncApiTest', {
+            fetch('/asyncApiTest', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

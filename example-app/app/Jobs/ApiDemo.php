@@ -30,8 +30,8 @@ class ApiDemo implements ShouldQueue
      */
     public function handle()
     {
-        $delaySeconds=rand(1, 3);
-        sleep($delaySeconds);
-        echo "Delayed {$delaySeconds}s";
+        // $delaySeconds=5;
+        // sleep($delaySeconds);
+        throw new \Exception('Simulated error');
     }
 }
