@@ -6,19 +6,24 @@ use App\Jobs\SalesCsvProcess;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 use App\Events\BatchProcessingProgressUpdated;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
+
     public function index()
     {
-        return view('upload-file');
+        $allBatches = self::getAllBatchs();
+
+        return view('upload-file', ['allBatches' => $allBatches]);
     }
 
     public function uploadCsv()
     {
         if (request()->has('mycsv')) {
             $batch = Bus::batch([])->then(function (Batch $batch) {
-                $progress=Bus::findBatch($batch->id);
+                $progress = Bus::findBatch($batch->id);
+
                 event(new BatchProcessingProgressUpdated($progress->toArray()));
             })->dispatch();
 
@@ -31,8 +36,15 @@ class SalesController extends Controller
                 if ($key === 0) {
                     $header = array_shift($data);
                 }
-                $batch->add(new SalesCsvProcess($data, $header,$batch->id));
+                $batch->add(new SalesCsvProcess($data, $header, $batch->id));
             }
         }
+    }
+
+    public function getAllBatchs()
+    {
+        return DB::table('job_batches')
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 }
