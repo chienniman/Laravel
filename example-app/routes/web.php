@@ -14,3 +14,4 @@ use App\Http\Controllers\SalesController;
 */
 Route::get('/upload', [SalesController::class, 'index']);
 Route::post('/uploadCsv', [SalesController::class, 'uploadCsv']);
+Route::get('/getAllBatches', [SalesController::class, 'getAllBatches']);
